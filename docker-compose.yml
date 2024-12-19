@@ -1,0 +1,14 @@
+services:
+  mishmash-dev:
+    container_name: mishmash-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./src:/app
+      - /app/Mishmash.Server/bin
+      - /app/Mishmash.Server/obj
