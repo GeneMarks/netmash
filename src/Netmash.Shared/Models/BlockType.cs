@@ -5,6 +5,6 @@ public enum BlockType
     Text,
     Image,
     LinkGroup,
-    FileList,
+    FileBrowser,
     Html
 }
