@@ -1,6 +1,6 @@
-using Mishmash.Shared.Interfaces;
+using Netmash.Shared.Interfaces;
 
-namespace Mishmash.Shared.Models;
+namespace Netmash.Shared.Models;
 
 public abstract class Block
 {

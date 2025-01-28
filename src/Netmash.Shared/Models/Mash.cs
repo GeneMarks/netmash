@@ -1,4 +1,4 @@
-namespace Mishmash.Shared.Models;
+namespace Netmash.Shared.Models;
 
 public class Mash
 {

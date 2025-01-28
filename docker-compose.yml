@@ -1,6 +1,6 @@
 services:
-  mishmash-dev:
-    container_name: mishmash-dev
+  netmash-dev:
+    container_name: netmash-dev
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,5 +10,5 @@ services:
       - "5000:5000"
     volumes:
       - ./src:/app
-      - /app/Mishmash.Server/bin
-      - /app/Mishmash.Server/obj
+      - /app/Netmash.Server/bin
+      - /app/Netmash.Server/obj
