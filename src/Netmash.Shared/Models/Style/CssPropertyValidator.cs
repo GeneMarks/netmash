@@ -9,8 +9,6 @@ public class CssPropertyValidator
        _allowedCssProperties = allowedCssProperties;
     }
 
-    public bool isValidProperty(string property)
-    {
-        return _allowedCssProperties.Contains(property);
-    }
+    public bool IsValidProperty(string property) =>
+        _allowedCssProperties.Contains(property);
 }
