@@ -12,23 +12,16 @@ public class Style
 
     public void UpdateProperty(string key, string value)
     {
-        if (!string.IsNullOrWhiteSpace(key))
+        if (string.IsNullOrWhiteSpace(key))
         {
             throw new ArgumentNullException(nameof(key), "CSS property key cannot be null or empty.");
         }
 
-        if (!AvailableProperties.isValidProperty(key))
+        if (!AvailableProperties.IsValidProperty(key))
         {
             throw new ArgumentException($"Invalid CSS property: \"{key}\"", nameof(key));
         }
 
-        if (CssProperties.ContainsKey(key))
-        {
-            CssProperties[key] = value;
-        }
-        else
-        {
-            CssProperties.Add(key, value);
-        }
+        CssProperties[key] = value;
     }
 }
