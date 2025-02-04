@@ -1,8 +1,12 @@
-using Netmash.Shared.Interfaces;
-
 namespace Netmash.Shared.Models;
 
-public class ImageBlock : Block
+public class ImageBlock : BaseBlock
 {
-    public ImageBlock(IBlockRenderer Renderer) : base(BlockType.Image, Renderer) { }
+    public override BlockType Type => BlockType.Image;
+    public string Url { get; set; }
+
+    public ImageBlock(string url, StyleSet styles) : base(styles)
+    {
+        Url = url;
+    }
 }
