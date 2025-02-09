@@ -1,15 +1,16 @@
-namespace Netmash.Shared.Models;
-
+using Netmash.Shared.Interfaces;
 using Netmash.Shared.Utilities;
 
-public abstract class BaseBlock
+namespace Netmash.Shared.Models;
+
+public abstract class BaseBlock : IStylable
 {
     public string Id { get; } = IdGenerator.NewId();
-    public string CssClass { get; } = IdGenerator.NewCssClass();
     public abstract BlockType Type { get; }
-    public StyleSet Styles { get; }
+    public string CssClass { get; } = IdGenerator.NewCssClass();
+    public List<Style> Styles { get; }
 
-    protected BaseBlock(StyleSet styles)
+    protected BaseBlock(List<Style> styles)
     {
         Styles = styles;
     }

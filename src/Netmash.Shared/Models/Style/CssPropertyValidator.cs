@@ -1,6 +1,8 @@
+using Netmash.Shared.Interfaces;
+
 namespace Netmash.Shared.Models;
 
-public class CssPropertyValidator
+public class CssPropertyValidator : IStringValidator
 {
     private readonly HashSet<String> _allowedCssProperties;
 
@@ -9,6 +11,6 @@ public class CssPropertyValidator
        _allowedCssProperties = allowedCssProperties;
     }
 
-    public bool IsValidProperty(string property) =>
+    public bool IsValid(string property) =>
         _allowedCssProperties.Contains(property);
 }
