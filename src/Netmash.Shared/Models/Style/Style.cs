@@ -2,11 +2,11 @@ using Netmash.Shared.Interfaces;
 
 namespace Netmash.Shared.Models.Style;
 
-public class Style(IStylable stylee, IStringValidator availableProperties, IStringValidator availablePseudos, string? pseudoClass)
+public class Style(IStylable stylee, IStringValidator availableProperties, IStringValidator availablePseudos)
 {
     public IStylable Stylee { get; } = stylee;
-    public string? PseudoClass { get; }
-    private Dictionary<string, string> CssProperties { get; } = new();
+    public string? PseudoClass { get; private set; }
+    private Dictionary<string, string> CssProperties { get; } = [];
     private IStringValidator AvailableProperties { get; } = availableProperties;
     private IStringValidator AvailablePseudos { get; } = availablePseudos;
 
@@ -27,5 +27,15 @@ public class Style(IStylable stylee, IStringValidator availableProperties, IStri
         ArgumentException.ThrowIfNullOrWhiteSpace(nameof(key), "CSS property key cannot be null or empty.");
 
         CssProperties.Remove(key);
+    }
+
+    public void SetPseudoClass(string pseudoClass)
+    {
+        if (!AvailablePseudos.IsValid(pseudoClass))
+        {
+            throw new ArgumentException($"Invalid pseudo class: \"{pseudoClass}\"", nameof(pseudoClass));
+        }
+
+        PseudoClass = pseudoClass;
     }
 }
