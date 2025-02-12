@@ -2,28 +2,17 @@ using Netmash.Shared.Interfaces;
 
 namespace Netmash.Shared.Models;
 
-public class Style
+public class Style(IStylable stylee, IStringValidator availableProperties, IStringValidator availablePseudos, string? pseudoClass)
 {
-    public IStylable Parent { get; }
+    public IStylable Stylee { get; } = stylee;
+    public string? PseudoClass { get; }
     private Dictionary<string, string> CssProperties { get; } = new();
-    private string? PseudoClass { get; }
-    private IStringValidator AvailableProperties { get; }
-    private IStringValidator AvailablePseudos { get; }
-
-    public Style(IStylable parent, IStringValidator availableProperties, IStringValidator availablePseudos, string? pseudoClass)
-    {
-        Parent = parent;
-        AvailableProperties = availableProperties;
-        AvailablePseudos = availablePseudos;
-        if (pseudoClass is not null)
-        {
-            PseudoClass = pseudoClass;
-        }
-    }
+    private IStringValidator AvailableProperties { get; } = availableProperties;
+    private IStringValidator AvailablePseudos { get; } = availablePseudos;
 
     public void UpdateProperty(string key, string value)
     {
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(nameof(key), "CSS property key cannot be null or empty.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(nameof(key), "CSS property key cannot be null or empty.");
 
         if (!AvailableProperties.IsValid(key))
         {
@@ -35,7 +24,7 @@ public class Style
 
     public void RemoveProperty(string key)
     {
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(nameof(key), "CSS property key cannot be null or empty.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(nameof(key), "CSS property key cannot be null or empty.");
 
         CssProperties.Remove(key);
     }
