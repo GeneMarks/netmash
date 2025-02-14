@@ -1,4 +1,4 @@
-namespace Netmash.Shared.Models.Styling;
+namespace Netmash.Shared.Styling;
 
 public class StyleComparer : IEqualityComparer<Style>
 {

@@ -1,6 +1,6 @@
 using Netmash.Shared.Interfaces;
 
-namespace Netmash.Shared.Models.Styling;
+namespace Netmash.Shared.Styling;
 
 public class Style(
         IStringValidator availableProperties,

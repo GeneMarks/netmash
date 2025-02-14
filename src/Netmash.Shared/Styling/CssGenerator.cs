@@ -1,6 +1,6 @@
 using Netmash.Shared.Utilities;
 
-namespace Netmash.Shared.Models.Styling;
+namespace Netmash.Shared.Styling;
 
 public class CssGenerator
 {

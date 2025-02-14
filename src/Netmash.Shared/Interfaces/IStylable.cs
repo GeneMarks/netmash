@@ -1,4 +1,4 @@
-using Netmash.Shared.Models.Styling;
+using Netmash.Shared.Styling;
 
 namespace Netmash.Shared.Interfaces;
 

@@ -1,4 +1,4 @@
-namespace Netmash.Shared.Models;
+namespace Netmash.Shared.Blocks;
 
 public enum BlockType
 {

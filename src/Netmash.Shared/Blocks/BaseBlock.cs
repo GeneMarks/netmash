@@ -1,8 +1,8 @@
 using Netmash.Shared.Interfaces;
-using Netmash.Shared.Models.Styling;
+using Netmash.Shared.Styling;
 using Netmash.Shared.Utilities;
 
-namespace Netmash.Shared.Models;
+namespace Netmash.Shared.Blocks;
 
 public abstract class BaseBlock : IStylable
 {
