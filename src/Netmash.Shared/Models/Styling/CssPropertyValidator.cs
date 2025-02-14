@@ -1,6 +1,6 @@
 using Netmash.Shared.Interfaces;
 
-namespace Netmash.Shared.Models.Style;
+namespace Netmash.Shared.Models.Styling;
 
 public class CssPropertyValidator(HashSet<string> allowedCssProperties) : IStringValidator
 {

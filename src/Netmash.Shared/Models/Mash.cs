@@ -1,17 +1,13 @@
+using Netmash.Shared.Interfaces;
+using Netmash.Shared.Models.Styling;
+
 namespace Netmash.Shared.Models;
 
-public class Mash
+public class Mash : IStylable
 {
-    public readonly Account Owner { get; }
+    public Account Owner { get; }
     public string Name { get; set; }
-    public MashAppearance Appearance { get; set; }
     public List<Block> Blocks { get; set; }
-
-    public Mash(Account owner, string name, MashAppearance appearance, List<Block> blocks)
-    {
-        Owner = owner;
-        Name = name;
-        Appearance = appearance;
-        Blocks = blocks;
-    }
+    public CssGenerator CssGenerator = new();
+    public StyleContainer Styles { get; } = new();
 }

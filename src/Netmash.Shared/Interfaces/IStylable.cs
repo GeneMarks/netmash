@@ -1,9 +1,13 @@
-using Netmash.Shared.Models;
+using Netmash.Shared.Models.Styling;
 
 namespace Netmash.Shared.Interfaces;
 
 public interface IStylable
 {
-    public string CssClass { get; }
-    public List<Style> Styles { get; }
+    public StyleContainer Styles { get; }
+
+    public void RegisterStyles(CssGenerator cssGenerator) =>
+        cssGenerator.RegisterStyles(Styles);
+    public void UnregisterStyles(CssGenerator cssGenerator) =>
+        cssGenerator.UnregisterStyles(Styles);
 }
