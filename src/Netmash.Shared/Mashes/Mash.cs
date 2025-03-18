@@ -3,7 +3,7 @@ using Netmash.Shared.Interfaces;
 using Netmash.Shared.Styling;
 using Netmash.Shared.Utilities;
 
-namespace Netmash.Shared.Mash;
+namespace Netmash.Shared.Mashes;
 
 public class Mash : IStylable
 {
@@ -11,6 +11,6 @@ public class Mash : IStylable
     public Account Owner { get; }
     public string Name { get; set; }
     public List<BaseBlock> Blocks { get; set; }
-    public CssGenerator CssGenerator = new();
+    public CssGenerator CssGenerator = new(this);
     public StyleContainer Styles { get; } = new();
 }

@@ -8,5 +8,7 @@ public abstract class BaseBlock : IStylable
 {
     public string Id { get; } = IdGenerator.NewId();
     public abstract BlockType Type { get; }
-    public StyleContainer Styles { get; } = new();
+    public HashSet<Style> Styles { get; } = [];
+
+    public virtual IEnumerable<IStylable> GetStylableChildren() => Enumerable.Empty<IStylable>();
 }

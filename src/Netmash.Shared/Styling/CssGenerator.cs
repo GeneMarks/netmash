@@ -1,51 +1,42 @@
+using Netmash.Shared.Interfaces;
 using Netmash.Shared.Utilities;
 
 namespace Netmash.Shared.Styling;
 
-public class CssGenerator
+public class CssGenerator(IStylable stylableObj)
 {
     public string Id { get; private set; } = IdGenerator.NewId();
-    private readonly HashSet<StyleContainer> _styleContainers = [];
+    private IStylable StylableObj { get; } = stylableObj;
     private string _css = "";
 
-    public void RegisterStyles(StyleContainer styles) =>
-        _styleContainers.Add(styles);
-
-    public void UnregisterStyles(StyleContainer styles) =>
-        _styleContainers.Remove(styles);
-
-    public string BuildCss()
+    public string Generate()
     {
-        Id = IdGenerator.NewId(); // Set new ID string used for cache-busting
-
-        _css = string.Join("\n\n", _styleContainers
-            .SelectMany(sc => sc.AllStyles)
-            .Select(GetStyleRule));
+        // Set new ID string used for cache-busting
+        Id = IdGenerator.NewId();
+        // Clear css before rebuilding
+        _css = "";
+        // Recursively build css
+        BuildCss(StylableObj);
 
         return _css;
     }
 
-    public static string GetStyleRule(Style style)
+    private void BuildCss(IStylable stylableObj)
     {
-        var selector = $".{style.ClassName}";
+        var groupedStyles = stylableObj.Styles.GroupBy(style => style.Selector);
 
-        if (style.SecondaryClassName is not null)
+        foreach (var group in groupedStyles)
         {
-            selector = $"{selector} .{style.SecondaryClassName}";
+            var rules = string.Join("\n", group.Select(s => $"    {s.Rule}: {s.Value};"));
+            _css += $"\n\n{group.Key} {{\n{rules}\n}}";
         }
 
-        if (style.PseudoClassName is not null)
+        var stylableChildren = stylableObj.GetStylableChildren();
+
+        if (!stylableChildren.Any()) return;
+        foreach (var child in stylableChildren)
         {
-            selector = $"{selector}:{style.PseudoClassName}";
+            BuildCss(child);
         }
-
-        var properties = string.Join("\n", style.CssProperties.Select(kvp => $"{kvp.Key}: {kvp.Value};"));
-
-        return $$"""
-            {{selector}} {
-                {{properties}}
-            }
-            """;
     }
-
 }

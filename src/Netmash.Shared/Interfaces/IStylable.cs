@@ -4,10 +4,7 @@ namespace Netmash.Shared.Interfaces;
 
 public interface IStylable
 {
-    public StyleContainer Styles { get; }
+    public HashSet<Style> Styles { get; }
 
-    public void RegisterStyles(CssGenerator cssGenerator) =>
-        cssGenerator.RegisterStyles(Styles);
-    public void UnregisterStyles(CssGenerator cssGenerator) =>
-        cssGenerator.UnregisterStyles(Styles);
+    public virtual IEnumerable<IStylable> GetStylableChildren() => Enumerable.Empty<IStylable>();
 }
