@@ -4,8 +4,8 @@ namespace Netmash.Shared.Blocks;
 
 public class LinkGroupBlock : BaseBlock
 {
-    public override BlockType Type => BlockType.LinkGroup;
-    public List<Link> Links { get; } = [];
+    public override BlockType BlockType => BlockType.LinkGroup;
+    public List<Link> Links { get; set; } = [];
 
     public override IEnumerable<IStylable> GetStylableChildren() => Links;
 }

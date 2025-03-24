@@ -1,14 +1,16 @@
+using Netmash.Shared.Common;
 using Netmash.Shared.Interfaces;
 using Netmash.Shared.Styling;
 using Netmash.Shared.Utilities;
 
 namespace Netmash.Shared.Blocks;
 
-public abstract class BaseBlock : IStylable
+public abstract class BaseBlock : Entity, ISortable, IStylable
 {
-    public string Id { get; } = IdGenerator.NewId();
-    public abstract BlockType Type { get; }
-    public HashSet<Style> Styles { get; } = [];
+    public abstract BlockType BlockType { get; }
+    public uint SortOrder { get; set; }
+    public string DivId { get; set; } = IdGenerator.NewDivId();
+    public HashSet<Style> Styles { get; set; } = [];
 
-    public virtual IEnumerable<IStylable> GetStylableChildren() => Enumerable.Empty<IStylable>();
+    public virtual IEnumerable<IStylable> GetStylableChildren() => [];
 }

@@ -4,7 +4,8 @@ namespace Netmash.Shared.Interfaces;
 
 public interface IStylable
 {
-    public HashSet<Style> Styles { get; }
+    string DivId { get; set; }
+    HashSet<Style> Styles { get; set; }
 
-    public virtual IEnumerable<IStylable> GetStylableChildren() => Enumerable.Empty<IStylable>();
+    IEnumerable<IStylable> GetStylableChildren() => [];
 }

@@ -1,42 +1,32 @@
+using System.Text;
 using Netmash.Shared.Interfaces;
-using Netmash.Shared.Utilities;
 
 namespace Netmash.Shared.Styling;
 
-public class CssGenerator(IStylable stylableObj)
+public static class CssGenerator
 {
-    public string Id { get; private set; } = IdGenerator.NewId();
-    private IStylable StylableObj { get; } = stylableObj;
-    private string _css = "";
-
-    public string Generate()
+    public static string Generate(IStylable stylableObj)
     {
-        // Set new ID string used for cache-busting
-        Id = IdGenerator.NewId();
-        // Clear css before rebuilding
-        _css = "";
-        // Recursively build css
-        BuildCss(StylableObj);
-
-        return _css;
+        var builder = new StringBuilder();
+        BuildCss(stylableObj, builder);
+        return builder.ToString();
     }
 
-    private void BuildCss(IStylable stylableObj)
+    private static void BuildCss(IStylable stylableObj, StringBuilder builder)
     {
         var groupedStyles = stylableObj.Styles.GroupBy(style => style.Selector);
 
         foreach (var group in groupedStyles)
         {
             var rules = string.Join("\n", group.Select(s => $"    {s.Rule}: {s.Value};"));
-            _css += $"\n\n{group.Key} {{\n{rules}\n}}";
+            builder.AppendLine($"\n\n{group.Key} {{");
+            builder.AppendLine(rules);
+            builder.AppendLine("}");
         }
 
-        var stylableChildren = stylableObj.GetStylableChildren();
-
-        if (!stylableChildren.Any()) return;
-        foreach (var child in stylableChildren)
+        foreach (var child in stylableObj.GetStylableChildren())
         {
-            BuildCss(child);
+            BuildCss(child, builder);
         }
     }
 }

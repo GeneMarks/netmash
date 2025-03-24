@@ -1,16 +1,16 @@
 using Netmash.Shared.Blocks;
+using Netmash.Shared.Common;
 using Netmash.Shared.Interfaces;
 using Netmash.Shared.Styling;
 using Netmash.Shared.Utilities;
 
 namespace Netmash.Shared.Mashes;
 
-public class Mash : IStylable
+public class Mash(string name) : Entity, IStylable
 {
-    public string Id { get; } = IdGenerator.NewId();
-    public Account Owner { get; }
-    public string Name { get; set; }
-    public List<BaseBlock> Blocks { get; set; }
-    public CssGenerator CssGenerator = new(this);
-    public StyleContainer Styles { get; } = new();
+    /*public Account Owner { get; }*/
+    public string Name { get; set; } = name;
+    public List<BaseBlock> Blocks { get; set; } = [];
+    public string DivId { get; set; } = IdGenerator.NewDivId();
+    public HashSet<Style> Styles { get; set; } = [];
 }
