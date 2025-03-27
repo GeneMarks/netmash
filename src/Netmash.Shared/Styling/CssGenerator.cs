@@ -18,8 +18,8 @@ public static class CssGenerator
 
         foreach (var group in groupedStyles)
         {
-            var rules = string.Join("\n", group.Select(s => $"    {s.Rule}: {s.Value};"));
-            builder.AppendLine($"\n\n{group.Key} {{");
+            var rules = string.Join(Environment.NewLine, group.Select(s => $"    {s.Rule}: {s.Value};"));
+            builder.AppendLine($"{group.Key} {{");
             builder.AppendLine(rules);
             builder.AppendLine("}");
         }
