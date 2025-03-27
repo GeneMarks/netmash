@@ -33,7 +33,7 @@ public class CssGeneratorTests
     }
 
     [Fact]
-    public void CssGenerator_Generate_ProducesValidCssWithRecursion()
+    public void CssGenerator_GenerateWithRecursion_ProducesValidCss()
     {
         var linkGroupBlock = new LinkGroupBlock();
 
