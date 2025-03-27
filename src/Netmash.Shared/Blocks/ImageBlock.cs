@@ -1,7 +1,7 @@
 namespace Netmash.Shared.Blocks;
 
-public class ImageBlock(string url) : BaseBlock
+public class ImageBlock(Uri url) : BaseBlock
 {
     public override BlockType BlockType => BlockType.Image;
-    public string Url { get; set; } = url;
+    public Uri Url { get; set; } = url;
 }
