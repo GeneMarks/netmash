@@ -11,7 +11,7 @@ public abstract class BaseBlock : Entity, ISortable, IStylable
     public string DivId { get; set; } = IdGenerator.NewDivId();
     public HashSet<Style> Styles { get; set; } = [];
 
-    public abstract BlockType BlockType { get; }
+    public BlockType BlockType { get; protected set; }
 
     public virtual IEnumerable<IStylable> GetStylableChildren() => [];
 }

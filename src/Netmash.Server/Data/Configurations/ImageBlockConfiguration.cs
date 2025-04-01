@@ -8,7 +8,6 @@ public class ImageBlockConfiguration : IEntityTypeConfiguration<ImageBlock>
 {
     public void Configure(EntityTypeBuilder<ImageBlock> builder)
     {
-        builder.ConfigureEntity();
         builder.ConfigureStylable();
     }
 }

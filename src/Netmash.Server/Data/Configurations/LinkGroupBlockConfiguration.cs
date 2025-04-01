@@ -8,9 +8,6 @@ public class LinkGroupBlockConfiguration : IEntityTypeConfiguration<LinkGroupBlo
 {
     public void Configure(EntityTypeBuilder<LinkGroupBlock> builder)
     {
-        builder.ConfigureEntity();
-        builder.ConfigureStylable();
-
         builder.HasMany(b => b.Links)
             .WithOne()
             .HasForeignKey("LinkGroupBlockId");

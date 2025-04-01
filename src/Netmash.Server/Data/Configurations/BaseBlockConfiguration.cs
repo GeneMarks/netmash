@@ -11,10 +11,10 @@ public class BaseBlockConfiguration : IEntityTypeConfiguration<BaseBlock>
         builder.ConfigureEntity();
         builder.ConfigureStylable();
 
-        builder.HasDiscriminator<string>("BlockType")
+        builder.HasDiscriminator(b => b.BlockType)
             /*.HasValue<Text>("Text")*/
-            .HasValue<ImageBlock>("Image")
-            .HasValue<LinkGroupBlock>("LinkGroup")
+            .HasValue<ImageBlock>(BlockType.Image)
+            .HasValue<LinkGroupBlock>(BlockType.LinkGroup)
             /*.HasValue<FileBrowser>("FileBrowser")*/
             /*.HasValue<Html>("Html")*/
             ;
