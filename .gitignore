@@ -1,24 +1,6 @@
 bin/
 obj/
 
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
-
-*.log
-*.sql
-*.sqlite
-*.sqlite3
-
-appsettings.Development.json
-appsettings.Local.json
-appsettings.*.json
-*.secret.json
-
-docker-compose.override.yml
-.dockerignore
-
 node_modules/
 
 wwwroot/
