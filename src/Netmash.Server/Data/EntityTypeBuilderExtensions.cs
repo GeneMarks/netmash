@@ -12,6 +12,12 @@ public static class EntityTypeBuilderExtensions
         builder.HasKey(entity => entity.Id);
     }
 
+    public static void ConfigureSortable<T>(this EntityTypeBuilder<T> builder)
+        where T : class, ISortable
+    {
+        builder.Property(s => s.SortOrder);
+    }
+
     public static void ConfigureStylable<T>(this EntityTypeBuilder<T> builder)
         where T : class, IStylable
     {
