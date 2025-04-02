@@ -9,6 +9,7 @@ public class LinkConfiguration : IEntityTypeConfiguration<Link>
     public void Configure(EntityTypeBuilder<Link> builder)
     {
         builder.ConfigureEntity();
+        builder.ConfigureSortable();
         builder.ConfigureStylable();
     }
 }

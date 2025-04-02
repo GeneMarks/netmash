@@ -9,6 +9,7 @@ public class BaseBlockConfiguration : IEntityTypeConfiguration<BaseBlock>
     public void Configure(EntityTypeBuilder<BaseBlock> builder)
     {
         builder.ConfigureEntity();
+        builder.ConfigureSortable();
         builder.ConfigureStylable();
 
         builder.HasDiscriminator(b => b.BlockType)
