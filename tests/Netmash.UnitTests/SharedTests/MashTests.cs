@@ -1,6 +1,6 @@
 ﻿using Netmash.Shared.Mashes;
 
-namespace Netmash.UnitTests.Shared;
+namespace Netmash.UnitTests.SharedTests;
 
 public class MashTests
 {

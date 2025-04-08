@@ -1,6 +1,7 @@
+using Netmash.IntegrationTests.TestHelpers;
 using Netmash.Shared.Mashes;
 
-namespace Netmash.IntegrationTests.Server;
+namespace Netmash.IntegrationTests.ServerTests;
 
 public class StylesConverterTests
 {

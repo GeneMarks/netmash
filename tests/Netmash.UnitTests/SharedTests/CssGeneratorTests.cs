@@ -3,7 +3,7 @@ using Netmash.Shared.Blocks;
 using Netmash.Shared.Mashes;
 using Netmash.Shared.Styling;
 
-namespace Netmash.UnitTests.Shared;
+namespace Netmash.UnitTests.SharedTests;
 
 public class CssGeneratorTests
 {

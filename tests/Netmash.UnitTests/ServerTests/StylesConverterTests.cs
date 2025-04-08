@@ -1,7 +1,7 @@
 using Netmash.Server.Data.Converters;
 using Netmash.Shared.Styling;
 
-namespace Netmash.UnitTests.Server;
+namespace Netmash.UnitTests.ServerTests;
 
 public class StylesConverterTests
 {
