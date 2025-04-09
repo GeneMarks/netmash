@@ -11,7 +11,6 @@ public static class AppEnvironmentInitializer
         foreach (var dir in new[]
         {
             settings.DbDirectory,
-            settings.LogDirectory,
             settings.UploadDirectory
         })
         {
