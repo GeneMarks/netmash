@@ -1,5 +1,0 @@
-/storage/**
-
-!/storage/
-!/storage/**/
-!/storage/**/.gitkeep
