@@ -7,20 +7,30 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    /* Settings Configuration */
     builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-    var settings = builder.Configuration.Get<AppSettings>()!;
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.Configure(builder.Configuration.GetSection("Kestrel"));
+    });
 
+    // Load settings for pre-build tasks
+    var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>()!;
+
+    /* Logger Configuration */
     Log.Logger = new LoggerConfiguration()
-        .MinimumLevel.Information()
+        .ReadFrom.Configuration(builder.Configuration)
         .WriteTo.Console(outputTemplate: "[{Level:u3}] {Message:lj}{NewLine}{Exception}")
-        .WriteTo.File($"{settings.LogDirectory}/netmash.log", rollingInterval: RollingInterval.Day)
+        .WriteTo.File($"{appSettings.LogDirectory}/netmash.log", rollingInterval: RollingInterval.Day)
         .CreateLogger();
 
     builder.Services.AddSerilog();
 
-    AppEnvironmentInitializer.InitializeDirectories(settings);
+    /* App Environment Initialization */
+    AppEnvironmentInitializer.InitializeDirectories(appSettings);
 
-    var dbManager = new AppDbManager(settings);
+    /* Database Initialization */
+    var dbManager = new AppDbManager(appSettings);
     await dbManager.InitializeAsync();
 
     builder.Services.AddSingleton(dbManager);
@@ -55,9 +65,6 @@ try
 
     app.UseAntiforgery();
 
-
-    // TODO: port and coloring
-    Log.Information("Started successfully. Listening on port");
     app.Run();
 }
 catch (Exception ex)
