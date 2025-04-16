@@ -10,8 +10,9 @@ public static class AppEnvironmentInitializer
 
         foreach (var dir in new[]
         {
-            settings.DbDirectory,
-            settings.UploadDirectory
+            settings.DbFolderPath,
+            settings.LogFolderPath,
+            settings.UploadFolderPath
         })
         {
             Log.Information("Ensuring directory exists: {Directory}", dir);
