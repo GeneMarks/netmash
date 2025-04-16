@@ -1,14 +1,14 @@
-﻿using Netmash.IntegrationTests.TestHelpers;
-using Netmash.Shared.Mashes;
+﻿using Netmash.Shared.Mashes;
+using Netmash.TestUtilities;
 
 namespace Netmash.IntegrationTests.ServerTests;
 
 public class MashTests
 {
     [Fact]
-    public void Mash_CanInsertAndRetrieve()
+    public async Task Mash_CanInsertAndRetrieve()
     {
-        using var context = TestDbContextFactory.Create();
+        using var context = await TestDbContextFactory.CreateInMemoryAsync();
 
         context.Mashes.Add(new Mash("Test Mash"));
         context.SaveChanges();

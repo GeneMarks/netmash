@@ -1,14 +1,14 @@
-using Netmash.IntegrationTests.TestHelpers;
 using Netmash.Shared.Mashes;
+using Netmash.TestUtilities;
 
 namespace Netmash.IntegrationTests.ServerTests;
 
 public class StylesConverterTests
 {
     [Fact]
-    public void Styles_AreSavedAndLoadedCorrectly()
+    public async Task Styles_AreSavedAndLoadedCorrectly()
     {
-        using var context = TestDbContextFactory.Create();
+        using var context = await TestDbContextFactory.CreateInMemoryAsync();
 
         var mash = new Mash("Stylable Mash")
         {
