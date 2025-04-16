@@ -1,13 +1,15 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Netmash.Server.Configuration;
+using Netmash.Server.Data;
 using Serilog;
 
-namespace Netmash.Server.Data;
+namespace Netmash.Server.Services.Database;
 
 public class AppDbManager(AppSettings settings)
 {
     private readonly AppSettings _settings = settings;
+    private const string _backupsTimestampFormat = "yyyyMMdd-HHmmssfff";
     private SqliteConnection? _sharedConnection;
     private bool _isInitialized = false;
 
@@ -29,8 +31,8 @@ public class AppDbManager(AppSettings settings)
 
         Log.Information("Initializing database...");
 
-        Log.Debug("Opening connection to disk database at {DbPath}", _settings.DbPath);
-        await using var dbConn = new SqliteConnection($"Data Source={_settings.DbPath}");
+        Log.Debug("Opening connection to disk database at {DbFilePath}", _settings.DbFilePath);
+        await using var dbConn = new SqliteConnection($"Data Source={_settings.DbFilePath}");
         await dbConn.OpenAsync();
 
         var options = new DbContextOptionsBuilder<AppDbContext>()
@@ -59,37 +61,41 @@ public class AppDbManager(AppSettings settings)
 
         await CreateBackupAsync();
 
-        Log.Information("Syncing in-memory database to file: {DbPath}", _settings.DbPath);
-        Log.Debug("Opening connection to disk database at {DbPath}", _settings.DbPath);
-        await using var disk = new SqliteConnection($"Data Source={_settings.DbPath}");
-        await disk.OpenAsync();
+        Log.Information("Syncing in-memory database to file: {DbFilePath}", _settings.DbFilePath);
+        Log.Debug("Opening connection to disk database at {DbFilePath}", _settings.DbFilePath);
+        await using var dbConn = new SqliteConnection($"Data Source={_settings.DbFilePath}");
+        await dbConn.OpenAsync();
 
-        Log.Debug("Syncing in-memory database to disk...", _settings.DbPath);
-        _sharedConnection.BackupDatabase(disk);
+        Log.Debug("Syncing in-memory database to {DbFilePath}...", _settings.DbFilePath);
+        _sharedConnection.BackupDatabase(dbConn);
     }
 
     private async Task CreateBackupAsync()
     {
-        int backupsToKeep = 10;
-        string dbDir = _settings.DbDirectory;
-        string dbPath = _settings.DbPath;
-        string dbName = Path.GetFileName(dbPath);
+        string dbFolderPath = _settings.DbFolderPath;
+        string dbFilePath = _settings.DbFilePath;
+        string dbFilename = _settings.DbFilename;
 
-        string timestamp = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss");
-        string dbBackupPath = Path.Combine(dbDir, $"{dbName}.{timestamp}.bak");
+        string timestamp = DateTime.UtcNow.ToString(_backupsTimestampFormat);
+        string dbBackupFilePath = Path.Combine(dbFolderPath, $"{dbFilename}.{timestamp}.bak");
 
-        Log.Information("Backing up {DbName} to {DbBackupPath}", dbName, dbBackupPath);
-        await using FileStream source = File.Open(dbPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-        await using FileStream dest = File.Create(dbBackupPath);
+        Log.Information("Backing up {DbName} to {DbBackupPath}", dbFilename, dbBackupFilePath);
+        await using FileStream source = File.Open(dbFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        await using FileStream dest = File.Create(dbBackupFilePath);
         await source.CopyToAsync(dest);
 
+        CleanupBackups($"{dbFilename}.*.bak");
+    }
+
+    private void CleanupBackups(string pattern)
+    {
         Log.Information("Cleaning up old database backups...");
         var backupFiles = Directory
-            .GetFiles(dbDir, $"{dbName}.*.bak")
-            .OrderByDescending(File.GetCreationTimeUtc)
+            .GetFiles(_settings.DbFolderPath, pattern)
+            .OrderByDescending(Path.GetFileName)
             .ToList();
 
-        foreach (var file in backupFiles.Skip(backupsToKeep))
+        foreach (var file in backupFiles.Skip(_settings.DbBackupsToKeep))
         {
             Log.Debug("Deleting backup file: {File}", file);
             File.Delete(file);
