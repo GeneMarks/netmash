@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Netmash.Server.Configuration;
 using Netmash.Server.Data;
+using Netmash.Server.Services.Database;
 using Serilog;
 
 try
@@ -50,10 +51,8 @@ try
     if (!app.Environment.IsDevelopment())
     {
         app.UseExceptionHandler("/Error");
-        app.UseHsts();
     }
 
-    app.UseHttpsRedirection();
     app.UseStaticFiles();
 
     app.UseAuthorization();
