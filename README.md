@@ -1,0 +1,3 @@
+# Netmash
+
+Documentation WIP
