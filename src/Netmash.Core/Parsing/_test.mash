@@ -1,0 +1,85 @@
+[meta]
+name: Home
+path: /
+theme: default
+[/meta]
+
+[global]
+
+[style:block.Text]
+color: #000000
+[/style]
+
+[style:block.Links > link:hover]
+color: #ff3043
+text-decoration: underline
+[/style]
+
+[/global]
+
+
+[block:Text id=intro-text]
+Welcome to <i>Netmash</i>. This is my text block.
+It can even do multiple lines! Also here's how to escape: \[/block]
+[/block:style]
+color: #000000
+[/style]
+
+[style:#intro-text]
+font-size: 2rem
+[/style]
+
+
+
+[block:Text]
+Here's another block, but since I didn't
+specify an id, it's just gonna generate one. Don't
+worry, inline styling still works!!
+[/block:style]
+font-size: 10px
+[/style]
+
+
+
+[block:Links id=main-links]
+
+[link id=funnylink]
+text: something
+url: /something
+icon: /images/myicon.png
+[/link]
+
+[link id=super-funnylink]
+text: something funnier
+url: /something-funnyyyyyy
+icon: /images/myfunnyicon.jpg
+[/link:style]
+text: red
+[/style]
+
+[/block]
+
+[style:Links#main-links]
+background-color: #000fff
+[/style]
+
+[style:Links#main-links > link]
+color: #e02e02
+[/style]
+
+
+
+[block:Html]
+<div class="custom-html">
+    <p>Literally any html can go here.\nBut it's only editable locally maybe and doesn't show in frontend for security?</p>
+</div>
+[/block]
+
+
+
+[block:Css]
+.literal-custom-css {
+    color: red;
+    font-size: 12px;
+}
+[/block]

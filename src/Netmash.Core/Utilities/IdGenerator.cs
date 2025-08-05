@@ -1,4 +1,4 @@
-namespace Netmash.Shared.Utilities;
+namespace Netmash.Core.Utilities;
 
 using NanoidDotNet;
 

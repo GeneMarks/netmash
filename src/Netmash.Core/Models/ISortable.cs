@@ -1,4 +1,4 @@
-namespace Netmash.Shared.Interfaces;
+namespace Netmash.Core.Models;
 
 public interface ISortable
 {
