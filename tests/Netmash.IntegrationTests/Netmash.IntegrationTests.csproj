@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/Netmash.Server/Netmash.Server.csproj" />
-    <ProjectReference Include="../../src/Netmash.Shared/Netmash.Shared.csproj" />
+    <ProjectReference Include="../../src/Netmash.Core/Netmash.Core.csproj" />
     <ProjectReference Include="../Netmash.TestUtilities/Netmash.TestUtilities.csproj" />
   </ItemGroup>
 

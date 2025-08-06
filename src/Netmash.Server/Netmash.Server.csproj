@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Netmash.Shared/Netmash.Shared.csproj" />
+    <ProjectReference Include="../Netmash.Core/Netmash.Core.csproj" />
   </ItemGroup>
 
 </Project>
