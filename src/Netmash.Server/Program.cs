@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Netmash.Server.Configuration;
-using Netmash.Server.Data;
-using Netmash.Server.Services.Database;
 using Serilog;
 
 try
@@ -30,18 +28,6 @@ try
     /* App Environment Initialization */
     AppEnvironmentInitializer.InitializeDirectories(appSettings);
 
-    /* Database Initialization */
-    var dbManager = new AppDbManager(appSettings);
-    await dbManager.InitializeAsync();
-
-    builder.Services.AddSingleton(dbManager);
-
-    // Use dbManager's shared connection for dbcontext
-    builder.Services.AddDbContext<AppDbContext>(options =>
-    {
-        var conn = dbManager.GetConnection();
-        options.UseSqlite(conn);
-    });
 
     builder.Services.AddRazorPages();
     builder.Services.AddControllersWithViews();
